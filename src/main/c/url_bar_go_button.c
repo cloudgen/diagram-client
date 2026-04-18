@@ -10,54 +10,34 @@
 // =========================================================================
 
 // =========================================================================
-// CRITICAL NOTE ON 'static' KEYWORD USAGE IN CALLBACK FUNCTIONS
+// CRITICAL NOTE ON CROSS-FILE CALLBACK INTEGRATION (CIAO FLEXIBILITY RULE)
 // =========================================================================
 //
-// PROBLEM WITH 'static':
-//   When a function is declared 'static' in a .c file, it has INTERNAL LINKAGE.
-//   This means the function symbol is NOT exported and is invisible to other
-//   translation units (.c files).
+// DESIGN GOAL:
+//   Support both complete (url_bar_user_agent.c) and incomplete / legacy
+//   (url_bar.c) integrations without modifying callback code.
 //
-//   In this architecture:
-//     - url_bar_user_agent.c calls on_go_button_clicked(), on_uri_changed(),
-//       and on_load_changed() via g_signal_connect().
-//     - The actual implementations live in url_bar_go_button.c and url_bar_page.c.
+// SOLUTION:
+//   - No 'static' keyword on callbacks → external linkage
+//   - Central header url_bar_callbacks.h provides clean declarations
+//   - Callbacks can be connected from any .c file that includes the header
 //
-//   Declaring these callbacks as 'static' causes "undefined reference" linker
-//   errors even though the functions are correctly written and compiled.
+// This architecture allows:
+//   - Current project (url_bar_user_agent.c)
+//   - Other projects using simpler url_bar.c
+//   - Future refactors
 //
-// WHY AI MODELS FREQUENTLY ADD 'static' INCORRECTLY:
-//   Large language models are heavily trained on modern C++ best practices and
-//   "clean code" guidelines that strongly encourage 'static' for functions that
-//   are not part of the public API. This is generally good advice *inside* a
-//   single translation unit.
+//   without any changes to on_go_button_clicked(), on_uri_changed(), 
+//   or on_load_changed().
 //
-//   However, when splitting callback logic across multiple files (as done here
-//   for CIAO modularity and Single Point of Entry principles), the callbacks
-//   must have EXTERNAL LINKAGE so they can be referenced from url_bar_user_agent.c.
+// CIAO DEFENSIVE RULE (Principle 18):
+//   These callback functions MUST remain non-static.
+//   Adding 'static' will break cross-file signal connections and is
+//   explicitly forbidden.
 //
-//   AI models often blindly apply the "make everything static unless exported"
-//   heuristic without understanding the cross-file signal connection pattern
-//   used in this GNOME/WebKitGTK project.
-//
-// CONSEQUENCE:
-//   Adding 'static' to these callbacks is a common and recurring failure mode
-//   that breaks the build. It has happened multiple times during previous
-//   refactoring attempts.
-//
-// CIAO DEFENSIVE RULE:
-//   Callback functions that are connected via g_signal_connect() from another
-//   .c file MUST NOT be declared 'static'. They require external linkage.
-//
-//   Only truly private helper functions inside a single .c file should be static.
-//
-//   This rule is part of the broader "Protect Against AI & Human Modification"
-//   principle (Principle 18).
-//
-// Last aligned with CIAO style + linker safety: 2026-04-17
+// Last aligned with flexible integration + linker safety: 2026-04-18
 // =========================================================================
 
-#include "url_bar_user_agent.h"
 #include "output.h"
 #include "load_page.h"
 #include <gtk/gtk.h>

@@ -18,7 +18,7 @@
 
 project('diagram-client',
     'c',
-    version: '1.0.3',          # Matches your project.h VERSION
+    version: '',          # Matches your project.h VERSION
     license: 'MIT',
     default_options: [
         'warning_level=3',

@@ -1,9 +1,9 @@
-Here are the updated steps to create a GNOME application for YouTube using Apache Ant, including the installation of Ant via SDKMAN.
+Here are the updated steps to create a GNOME application for diagram.net using Apache Ant, including the installation of Ant via SDKMAN.
 
-# Design Requirements for the GNOME YouTube Application
+# Design Requirements for the GNOME diagram.net Application
 
 ## Overview
-The goal of this project is to create a GNOME application that serves as a simple viewer for YouTube, using C as the programming language and Apache Ant as the build automation tool. This section discusses the design requirements, including folder structure, file breakdowns, usage of header files, and the Ant build script structure.
+The goal of this project is to create a GNOME application that serves as a simple viewer for diagram.net, using C as the programming language and Apache Ant as the build automation tool. This section discusses the design requirements, including folder structure, file breakdowns, usage of header files, and the Ant build script structure.
 
 ## Suggested Folder Structure
 To maintain an organized project structure, the following folder layout is recommended:
@@ -64,7 +64,7 @@ diagram-client/
 ### `main.c`
 The `main.c` file serves as the entry point for the application. Key functionalities include:
 - **Initialization**: Setting up the GTK library and creating the main application window.
-- **Web View**: Loading the YouTube homepage using `WebKitWebView`.
+- **Web View**: Loading the diagram.net homepage using `WebKitWebView`.
 - **Cookie Management**: Integrating the cookie management system to handle user data.
 
 ### `cookies.c`
@@ -340,14 +340,14 @@ Priority: optional
 Architecture: amd64
 Depends: ${runtime.packages}
 Maintainer: ${author}
-Description: A simple Youtube Client application.
+Description: A simple diagram.net Client application.
  A brief description of your application that provides more detail.
 ]]></echo>
 
         <echo file="${build.dir}/${app.name}/usr/share/applications/${app.name}.desktop" append="false"><![CDATA[
 [Desktop Entry]
-Name=Youtube Client
-Comment=View your Youtube Client in a simple interface
+Name=Diagram Client
+Comment=View your diagram.net Client in a simple interface
 Exec=${app.name}
 Icon=/path/to/icon.png  # Update with your icon path
 Terminal=false
@@ -404,7 +404,7 @@ The `executable="pkg-config"` in the compile task is necessary to retrieve the c
 17. **create-deb-package**: Compiles the final application and prepares a Debian package for installation, including necessary metadata and installation scripts.
 
 
-### Steps to Create a GNOME Application for YouTube Using Apache Ant
+### Steps to Create a GNOME Application for diagram.net Using Apache Ant
 
 1. **Install SDKMAN, Java, and Ant**:
    First, install SDKMAN, which will help you manage Java and Ant versions:
@@ -439,11 +439,11 @@ The `executable="pkg-config"` in the compile task is necessary to retrieve the c
 #define PROJECT_H
 
 #define PROJECT_ID "diagram-client"
-#define PROJECT_NAME "Youtube Viewer"
+#define PROJECT_NAME "Diagram (Client)"
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 0
 #define VERSION_PATCH 1
-#define START_PAGE "https://youtube.com"
+#define START_PAGE "https://app.diagram.net"
 
 // Define the persistence storage path relative to the home directory
 #define PERSISTENCE_STORAGE_PATH ".app/" PROJECT_ID "/cookies"
@@ -835,14 +835,14 @@ Priority: optional
 Architecture: amd64
 Depends: ${runtime.packages}
 Maintainer: ${author}
-Description: A simple Youtube Client application.
+Description: A simple diagram.net Client application.
  A brief description of your application that provides more detail.
 ]]></echo>
 
         <echo file="${build.dir}/${app.name}/usr/share/applications/${app.name}.desktop" append="false"><![CDATA[
 [Desktop Entry]
-Name=Youtube Client
-Comment=View your Youtube Client in a simple interface
+Name=Diagram Client
+Comment=View your diagram.net Client in a simple interface
 Exec=${app.name}
 Icon=/path/to/icon.png  # Update with your icon path
 Terminal=false
@@ -879,6 +879,6 @@ Categories=Utility;
 
 ### Conclusion
 
-The design requirements for the GNOME YouTube application involve careful consideration of file organization, modularity through header files, and a robust Ant build script. By adhering to modern C standards and utilizing external configurations, the project aims to achieve flexibility and maintainability.
+The design requirements for the GNOME diagram.net application involve careful consideration of file organization, modularity through header files, and a robust Ant build script. By adhering to modern C standards and utilizing external configurations, the project aims to achieve flexibility and maintainability.
 
-You have successfully created a GNOME application that opens YouTube using Apache Ant version 1.10.14 and Java version 24. The application is built from a C source file located at `src/main/c/main.c`, and the `build.xml` file is configured to compile and link the application appropriately.
+You have successfully created a GNOME application that opens diagram.net using Apache Ant version 1.10.14 and Java version 24. The application is built from a C source file located at `src/main/c/main.c`, and the `build.xml` file is configured to compile and link the application appropriately.
