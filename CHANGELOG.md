@@ -1,10 +1,3 @@
-Here's a clean, professional, and well-structured **CHANGELOG.md** tailored for your project:
-
-**Repository**: https://github.com/cloudgen/diagram-client
-
-### Final `CHANGELOG.md`
-
-```markdown
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -14,72 +7,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Support for pressing **Enter** key in the URL bar to trigger navigation (same behavior as clicking the "Go" button).
-- Strong defensive comment blocks across all URL bar callbacks (`on_uri_changed`, `on_load_changed`, `on_go_button_clicked`, and `add_url_bar_user_agent`) to protect against accidental modification by AI or future maintainers.
-- Improved real-time URL bar synchronization using `notify::uri` as primary signal with `load-changed` as fallback.
-
 ### Changed
-- Updated URL bar module (`url_bar_user_agent.c`) to follow strict CIAO defensive programming principles (18 rules).
-- Enhanced signal connections and input validation for better reliability during link clicks and manual URL entry.
+- Simplified the URL bar by removing User-Agent display and spoofing functionality.
+- User-Agent spoofing menu and advanced URL bar features have been moved to the more complete **[youtube-client](https://github.com/cloudgen/youtube-client)** project (which shares the same CIAO architecture).
+- Updated `main.c`, `url_bar.c`, and related modules to use the simpler URL bar implementation.
+- Removed `url_bar_user_agent.c`, `url_bar_user_agent.h`, `menu_user_agent.c`, and `menu_user_agent.h`.
 
-### Fixed
-- Gtk-CRITICAL assertion error (`gtk_entry_get_text: assertion 'GTK_IS_ENTRY (entry)' failed`) caused by incorrect signal-to-callback matching.
-- Broken URL bar updates when clicking links inside the WebKitWebView.
+### Documentation
+- Updated README.md to clearly indicate the removal of User-Agent features and redirect to youtube-client.
 
 ---
 
-## [1.0.0] - 2026-04-14
+## [1.0.4] - 2026-04-18
 
 ### Added
-- Initial release of diagram.app Client – a lightweight GNOME/WebKitGTK-based diagram.app browser.
-- URL bar with "Go" button and User-Agent display.
-- Real-time URL synchronization using `notify::uri` and `load-changed` signals.
-- Defensive CIAO-style coding throughout the codebase.
-- Basic navigation support via WebKitWebView.
+- Strong defensive protection comments ("SACRED", "Protection Rule", "DO NOT MODIFY") across URL bar callbacks (`on_go_button_clicked`, `on_uri_changed`, `on_load_changed`, `add_url_bar`) to guard against accidental simplification by AI or future maintainers.
+- Flexible callback architecture using `url_bar_callbacks.h` for better cross-file signal handling while maintaining external linkage.
+- Improved real-time URL bar synchronization with `notify::uri` as the primary signal and `load-changed` as a reliable fallback.
+- Enter key support in the URL bar (now behaves exactly like clicking the "Go" button).
+
+### Changed
+- Bumped version to 1.0.4.
+- Enhanced CIAO compliance in URL bar module (18 defensive principles applied).
+- Updated menu structure in `main.c` (removed User-Agent submenu reference in preparation for simplification).
+- Refined output messages and debug logging for clarity.
+
+### Fixed
+- Potential Gtk-CRITICAL assertions related to signal handling and entry validation.
+- Edge cases in URL bar updates during internal page navigation, JavaScript redirects, and link clicks.
+
+---
+
+## [1.0.0] - 2026-04-12
+
+### Added
+- Initial release of **diagram-client** — a lightweight native GNOME/WebKitGTK wrapper for **diagrams.net** (formerly draw.io).
+- Persistent cookie storage using SQLite (`~/.app/diagramclient/cookies/`).
+- Basic URL bar with "Go" button and real-time synchronization.
+- Quick bookmark menu for common diagrams.net pages.
+- Clean GNOME-style menu bar (File → Bookmark / Exit, About → Show Version).
+- Centralized defensive output system (`ciao_*` functions with `--quiet`, `--json`, and `DEBUG=1` support).
+- Full **CIAO Defensive Programming Style** applied across the entire codebase.
 
 ### Features
-- Modern GTK4 + WebKit2 integration
-- Custom User-Agent support
-- Structured output system (`ciao_*` functions)
-- Strong protection against accidental code simplification
+- Modern GTK+ 3 + WebKit2GTK 4.1 integration
+- No Electron bloat — significantly lower resource usage
+- Session persistence (cookies survive application restarts)
+- Multi-build-system support (Meson recommended)
 
 ---
 
 ## How to Maintain This File
 
 When making a new release:
-1. Move the content from `[Unreleased]` into a new version section with the release date.
-2. Create a fresh `[Unreleased]` section at the top.
-3. Use these categories (in order):
-   - **Added** for new features
-   - **Changed** for changes in existing functionality
-   - **Deprecated** for soon-to-be-removed features
-   - **Removed** for now-removed features
-   - **Fixed** for bug fixes
-   - **Security** for security-related changes
+1. Move the `[Unreleased]` section content into a new version header with today's date.
+2. Add a fresh `[Unreleased]` section at the top.
+3. Use these categories (in recommended order): **Added**, **Changed**, **Improved**, **Deprecated**, **Removed**, **Fixed**, **Security**.
 
 ---
 
 **Project**: [cloudgen/diagram-client](https://github.com/cloudgen/diagram-client)  
-**Philosophy**: Built with strict CIAO Defensive Programming Principles
+**Philosophy**: Built with strict **CIAO** (Caution • Intentionality • Anti-fragility • Over-engineering) principles
 
----
+**Last updated:** 2026-04-18
 
 Made with ❤️ and extreme caution.
-```
-
-### Recommendations:
-
-1. Save this as `CHANGELOG.md` in the root of your repository.
-2. Update the version number and date when you make the next release.
-3. You can expand the `[1.0.0]` section later if you want to add more details about the initial features.
-
-Would you like me to adjust anything?
-
-- Make it shorter?
-- Add more technical details?
-- Include links to specific commits or PRs?
-- Add a Chinese version alongside?
-
-Just tell me your preference and I’ll refine it quickly.
