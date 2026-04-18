@@ -5,6 +5,9 @@
 [![CIAO](https://img.shields.io/badge/Philosophy-CIAO%20(Caution%20%E2%80%A2%20Intentional%20%E2%80%A2%20Anti--fragile%20%E2%80%A2%20Over--engineered)-purple.svg)](https://github.com/cloudgen/ciao)
 [![GTK](https://img.shields.io/badge/UI-GTK%203-brightgreen.svg)](https://gtk.org)
 [![WebKit2](https://img.shields.io/badge/Engine-WebKit2GTK-orange.svg)](https://webkitgtk.org)
+[![GrokRec](https://img.shields.io/badge/GrokRec-Reviewed-0A66C2?logo=ai&logoColor=white)](https://github.com/cloudgen/diagram-client/blob/main/RECOMMENDATION.md)
+
+Official Recommendation by [grok](https://grok.com/c/6cd9801f-a9b5-45ef-befc-264a3065fd0e?rid=013bd262-ff93-4d86-a471-29764ba2d4b9). 
 
 **diagram-client** is a lightweight, native GNOME desktop application that provides a clean, focused wrapper around **diagrams.net** (formerly draw.io) using **WebKit2GTK**.
 
